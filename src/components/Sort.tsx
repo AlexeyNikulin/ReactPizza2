@@ -4,7 +4,12 @@ import '../scss/app.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
-export const sortList = [
+type SortItem = {
+    name: string;
+    sortProperty: string;
+};
+
+export const sortList: SortItem[] = [
     { name: 'популярности', sortProperty: 'rating' },
     { name: 'цене', sortProperty: 'price' },
     { name: 'алфавиту', sortProperty: 'title' },
@@ -13,11 +18,11 @@ export const sortList = [
 const Sort = () => {
     const sort = useSelector(selectSort);
     const dispatch = useDispatch();
-    const sortRef = useRef();
+    const sortRef = useRef<HTMLSpanElement>(null);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        const handleClick = (e) => {
+        const handleClick = (e: MouseEvent) => {
             if (!(e && e.target === sortRef.current)) {
                 setOpen(false);
             }
@@ -30,7 +35,7 @@ const Sort = () => {
         };
     }, []);
 
-    const handleClickOnSelected = (obj) => {
+    const handleClickOnSelected = (obj: SortItem) => {
         setOpen(false);
         dispatch(setSort(obj));
     };

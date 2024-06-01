@@ -1,11 +1,30 @@
-import React, { act, useState } from 'react';
+import React, { FC, act, useState } from 'react';
 import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 import '../../scss/app.scss';
 import { useDispatch, useSelector } from 'react-redux';
 
-const PizzaBlock = ({ pizza }) => {
-    const { id, title, imageUrl, types, sizes, price, category, rating } = pizza;
+type PizzaBlockProps = {
+    id: number;
+    title: string;
+    imageUrl: string;
+    types: number[];
+    sizes: number[];
+    price: number;
+    category: number;
+    rating: number;
+};
+
+const PizzaBlock: FC<PizzaBlockProps> = ({
+    id,
+    title,
+    imageUrl,
+    types,
+    sizes,
+    price,
+    category,
+    rating,
+}) => {
     const typesOfPizza = ['тонкое', 'традиционное'];
 
     const dispatch = useDispatch();
@@ -15,11 +34,11 @@ const PizzaBlock = ({ pizza }) => {
 
     const addedCount = item ? item.count : 0;
 
-    const changeSize = (index) => {
+    const changeSize = (index: number) => {
         setActiveSize(index);
     };
 
-    const changeType = (index) => {
+    const changeType = (index: number) => {
         setActiveType(index);
     };
 

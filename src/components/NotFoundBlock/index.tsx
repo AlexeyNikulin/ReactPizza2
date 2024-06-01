@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import style from './NotFoundBlock.module.scss';
 
-const NotFoundBlock = () => {
+const NotFoundBlock: FC = () => {
     return (
         <div className={style['not-found']}>
             <h1>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import qs from 'qs';
 import Categories from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
@@ -19,8 +19,8 @@ const Home = () => {
         sort: sortType,
         pageCount,
         searchValue,
-    } = useSelector((state) => state.filter);
-    const { pizzas, status } = useSelector((state) => state.pizza);
+    } = useSelector((state: any) => state.filter);
+    const { pizzas, status } = useSelector((state: any) => state.pizza);
     const dispatch = useDispatch();
     const isSearch = useRef(false);
     const isMounted = useRef(false);
@@ -62,6 +62,7 @@ const Home = () => {
 
     const getPizzas = async () => {
         dispatch(
+            //@ts-ignore
             fetchPizzas({
                 categoryId,
                 sortProperty: sortType.sortProperty,
@@ -71,23 +72,26 @@ const Home = () => {
         );
     };
 
-    const onChangeCategory = (idx) => {
+    const onChangeCategory = (idx: number) => {
         dispatch(setCategoryId(idx));
     };
 
-    const pizzasBlock = pizzas.map((pizza, idx) => {
-        return <PizzaBlock pizza={pizza} key={pizza.id} />;
+    const pizzasBlock = pizzas.map((pizza: any) => {
+        return <PizzaBlock {...pizza} key={pizza.id} />;
     });
     const skeletons = [...new Array(4)].map((_, idx) => <Skeleton key={idx} />);
 
-    const onChangePage = (num) => {
+    const onChangePage = (num: number) => {
         dispatch(setPageCount(num));
     };
 
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} onChangeCategory={(idx) => onChangeCategory(idx)} />
+                <Categories
+                    value={categoryId}
+                    onChangeCategory={(idx: number) => onChangeCategory(idx)}
+                />
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>

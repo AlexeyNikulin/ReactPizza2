@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
 
 import '../scss/app.scss';
 
-const Categories = ({ value, onChangeCategory }) => {
+type CategoriesProps = {
+    value: number;
+    onChangeCategory: (idx: number) => void;
+};
+
+const Categories: FC<CategoriesProps> = ({ value, onChangeCategory }) => {
     const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
     return (
